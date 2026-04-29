@@ -121,6 +121,7 @@ function App() {
       }
       return previousMaxRoundnessSeen;
     });
+    cv.circle(gray, new cv.Point(gray.cols / 2, gray.rows / 2), maxRadius - 5, new cv.Scalar(25), 10);
     // cv.imshow(circledImageRef.current, circledImage);
     cv.imshow(circledImageRef.current, gray);
     gray.delete();
@@ -128,15 +129,19 @@ function App() {
 
   const initialize = useCallback(async () => {
     if (!videoInputRef || !videoInputRef.current) return;
-
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: {
-          exact: "environment",
+    let stream = undefined;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: {
+            exact: "environment",
+          },
         },
-      },
-      audio: false,
-    });
+        audio: false,
+      });
+    } catch {
+      stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+    }
     if (!stream) {
       console.log("An error occurred!");
       return
@@ -162,7 +167,7 @@ function App() {
         initialize();
       }
     }
-  }, [videoInputRef]);
+  }, [initialize]);
 
   useEffect(() => {
     if (!initialized || paused) return;
