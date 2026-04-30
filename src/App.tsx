@@ -237,9 +237,13 @@ function App() {
     <div className="App">
       <video className="videoInput" ref={videoInputRef} />
       <canvas className="outputImage" ref={circledImageRef} />
-      <h4>Circles Count: {circles}</h4>
-      <h4>Circle Circularity {(circularity * 100).toFixed(2)} %</h4>
-      <h4>Max Roundness {(maxRoundnessSeen * 100).toFixed(2)} %</h4>
+      <div>
+        <h4
+          style={{ margin: '2px 0' }}
+        >
+          Circularity: {(circularity * 100).toFixed(2)} % (max: {(maxRoundnessSeen * 100).toFixed(2)} %)
+        </h4>
+      </div>
       <div className="settings">
         <div>
           <button
