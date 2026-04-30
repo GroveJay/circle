@@ -251,7 +251,7 @@ function App() {
               setMaxRoundnessSeen(0);
             }}
           >
-            Reset Max Roundness
+            Reset Max
           </button>
           <button
             onClick={() => {
